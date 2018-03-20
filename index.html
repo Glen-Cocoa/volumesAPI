@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <select id="shape">
+      <option value="sphere">Sphere</option>
+      <option value="cone">Cone</option>
+      <option value="cylinder">Cylinder</option>
+      <option value="rectangularprism">Rectangular Prism</option>
+    </select>
+      <div id='attributes'>
+      <input id = 'radius' type = 'text' placeholder = 'radius'>
+      <input id = 'height' type = 'text' placeholder = 'height'>
+      <input id = 'width' type = 'text' placeholder = 'width'>
+      <input id = 'length' type = 'text' placeholder = 'length'>
+    </div>
+    <button id='submitBtn'>
+      SUBMIT
+    </button>
+        <div id="target"></div>
+    <script>
+      $('#submitBtn').on('click', function(req,res){
+        let shape = $('#shape')[0].value || 0
+        let height = $('#height')[0].value || 0
+        let width = $('#width')[0].value || 0
+        let radius = $('#radius')[0].value || 0
+        let length = $('#length')[0].value || 0
+        
+        let queryStr = '/volumes/'+shape+'/?h='+height+'&w='+width+'&r='+radius+'&l='+length
+        console.log(queryStr)
+        
+        $.ajax({
+          type:'GET',
+          url:queryStr,
+          success:function(res){
+          $('#target').text(res.value)
+          }
+        })
+      });
+    </script>
+  </body>
+</html>
